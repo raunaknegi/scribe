@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormBuilder,FormControl, Validators} from '@angular/forms';
 import {AuthService} from '../auth.service';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+import { UseExistingWebDriver } from 'protractor/built/driverProviders';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -48,18 +52,31 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  formData(singupForm:any){
-    let email:string=singupForm.value.email;
-    let password:string=singupForm.value.password;
-    let firstName:string=singupForm.value.firstName;
-    let lastName:string=singupForm.value.lastName;
+  formData(signupForm:any){
+    let email:string=signupForm.value.email;
+    let password:string=signupForm.value.password;
+    let firstName:string=signupForm.value.firstName;
+    let lastName:string=signupForm.value.lastName;
     this.message="";
     this.errorMessage=undefined;
     
 
     this.authService.signup(email,password,firstName,lastName).then(
-      ()=>{
-          this.message="You have been succesfully signed up. Please log in";        
+      (user:any)=>{
+          firebase.firestore().collection('users').doc(user.uid).set({
+            firstname:signupForm.value.firstName,
+            lastname:signupForm.value.lastName,
+            email:signupForm.value.email,
+            photoURL:user.photoURL,
+            hobbies:"",
+            bio:""
+          }).then(()=>{
+            this.message="You have been succesfully signed up. Please log in";      
+          }).catch((error)=>{
+            console.log(error)
+          })
+
+            
       }).catch((error)=>{
         console.log(error);
         this.errorMessage=error;

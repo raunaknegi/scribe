@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxEditorModule} from 'ngx-editor'
 
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -22,18 +23,40 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { MenuComponent } from './menu/menu.component';
+import { MyblogsComponent } from './myblogs/myblogs.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CreateComponent } from './create/create.component';
+import { HttpClientModule } from '@angular/common/http';
+import { PostComponent } from './post/post.component';
+import { ViewComponent } from './view/view.component';
+import { CommentComponent } from './comment/comment.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent,
+    MenuComponent,
+    MyblogsComponent,
+    ProfileComponent,
+    CreateComponent,
+    PostComponent,
+    ViewComponent,
+    CommentComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxEditorModule,
+    HttpClientModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
